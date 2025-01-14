@@ -1,4 +1,8 @@
+import { useCart } from "../contexts/CartContext";
+
 export default function Cart () {
+    const { cartItems } = useCart();
+
     const emptyCart = (
         <div
             className="
@@ -33,7 +37,10 @@ export default function Cart () {
             >
                 Your Cart (0)
             </div>
-            {emptyCart}
+            {cartItems.length 
+                ? <></>
+                : emptyCart
+            }
         </div>
     )
 }
