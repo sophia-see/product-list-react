@@ -3,6 +3,8 @@ import { useCart } from "../contexts/CartContext";
 export default function Cart () {
     const { cartItems } = useCart();
 
+    console.log({cartItems})
+
     const emptyCart = (
         <div
             className="
@@ -21,6 +23,16 @@ export default function Cart () {
         </div>
     );
 
+    const renderCartList = cartItems.map((cart, index) => {
+        return (
+            <div
+                key={index}
+            >
+
+            </div>
+        )
+    })
+
     return (
         <div
             className="
@@ -38,7 +50,7 @@ export default function Cart () {
                 Your Cart (0)
             </div>
             {cartItems.length 
-                ? <></>
+                ? renderCartList
                 : emptyCart
             }
         </div>

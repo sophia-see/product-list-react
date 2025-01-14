@@ -1,6 +1,29 @@
+import { useCart } from "../contexts/CartContext";
 import data from "../data.json";
+import AddToCartButton from "./AddToCartButton";
+import ProductQuantityButton from "./ProductQuantityButton";
+
+export type Product = {
+    image: {
+        thumbnail: string;
+        desktop: string;
+        tablet: string;
+        mobile: string;
+    };
+    name: string;
+    category: string;
+    price: number;
+}
 export default function Products () {
-    const renderProducts = data.map((product, index) => {
+    const { cartItems, addToCart } = useCart();
+
+    const handleUpdateCart = (item: Product, quantity?: number) => {
+        addToCart(item, quantity);
+    };
+
+    const renderProducts = data.map((product: Product, index) => {
+        const itemInCart = cartItems.find(i => i.name == product.name);
+
         return (
             <div 
                 className="
@@ -8,6 +31,7 @@ export default function Products () {
                     m-auto
                     max-w-[327px] 
                 "
+                key={index}
             >
                 {/* picture w/ button*/}
                 <div
@@ -20,35 +44,25 @@ export default function Products () {
                     <img 
                         src={product.image.mobile} 
                         alt={`image of ${product.name}`} 
-                        className="
+                        className={`
                             w-full h-[212px]
                             object-center
-                        "
+                            rounded-[8px]
+                            ${itemInCart ? "border-[2px] border-red" : ""}
+                        `}
                     />
-                    <div 
-                        className="
-                            absolute bottom-0 left-1/2 transform -translate-x-1/2
-                            flex gap-2 items-center justify-center
-                            bg-white
-                            w-[160px] h-[44px]
-                            border-[1px] border-rose-400 rounded-full
-                        "
-                    >
-                        <img 
-                            className="
-                                fill-red
-                            "
-                            src="./assets/images/icon-add-to-cart.svg" 
-                            alt="shopping cart icon" 
-                        />
-                        <div 
-                            className="
-                                font-semibold text-[14px]
-                            "
-                        >
-                            Add to Cart
-                        </div>
-                    </div>
+                    {itemInCart 
+                        ?   <ProductQuantityButton 
+                                product={product} 
+                                quantity={itemInCart.quantity}
+                                handleUpdateCart={handleUpdateCart}
+                            />
+                        :   <AddToCartButton 
+                                product={product} 
+                                handleUpdateCart={handleUpdateCart}
+                            />
+                    }
+                    
                 </div>
 
                 {/* texts */}

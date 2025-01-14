@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { Product } from '../components/Products';
 
 export type CartItem = {
     name: string;
@@ -9,7 +10,7 @@ export type CartItem = {
 // Define the context type
 interface CartContextType {
     cartItems: CartItem[];
-    addToCart: (item: CartItem) => void;
+    addToCart: (item: Product, qty?: number) => void;
     removeFromCart: (id: string) => void;
     clearCart: () => void;
 }
@@ -23,8 +24,30 @@ interface CartProviderProps {
 export const CartProvider = ({ children }: CartProviderProps) => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-    const addToCart = (item: CartItem) => {
-        setCartItems((prevItems) => [...prevItems, item]);
+    const addToCart = (item: Product, qty?: number) => {
+        const itemInCart = cartItems.find(i => i.name == item.name);
+        
+        if (itemInCart) {
+            const newItems = cartItems.map((i) => {
+                const newQuant = i.quantity + (qty ? qty : 1);
+                if (i.name == item.name)
+                    return {
+                        ...i,
+                        quantity: newQuant
+                    }
+                else return i;
+            });
+
+            const filterItems = newItems.filter(i => i.quantity);
+            
+            setCartItems(filterItems);
+        } else {
+            setCartItems((prevItems) => [...prevItems, {
+                name: item.name,
+                price: item.price,
+                quantity: 1
+            }]);
+        }
     };
 
     const removeFromCart = (name: string) => {
