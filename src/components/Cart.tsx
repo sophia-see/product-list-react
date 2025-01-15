@@ -158,7 +158,7 @@ export default function Cart ({setIsModalOpen}: CartProps) {
                 className="
                     bg-white rounded-[12px]
                     flex flex-col gap-6
-                    max-w-[327px] w-full md:max-w-none
+                    max-w-[327px] w-full md:max-w-none lg:max-w-[384px]
                     p-6 m-auto lg:m-0
                 "
             >

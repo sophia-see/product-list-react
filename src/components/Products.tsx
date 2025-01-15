@@ -41,14 +41,14 @@ export default function Products () {
                     className="
                         relative
                         w-full
-                        h-[234px]
+                        h-[234px] lg:h-[262px]
                     "
                 >
                     <img 
                         src={image} 
                         alt={`image of ${product.name}`} 
                         className={`
-                            w-full h-[212px]
+                            w-full h-[212px] lg:h-[240px]
                             object-cover
                             rounded-[8px]
                             ${itemInCart ? "border-[2px] border-red" : ""}
