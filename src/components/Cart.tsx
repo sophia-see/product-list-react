@@ -1,9 +1,12 @@
 import { useCart } from "../contexts/CartContext";
+import CartTotal from "./CartTotal";
 
-export default function Cart () {
-    const { cartItems } = useCart();
+interface CartProps {
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-    console.log({cartItems})
+export default function Cart ({setIsModalOpen}: CartProps) {
+    const { cartItems, removeFromCart } = useCart();
 
     const emptyCart = (
         <div
@@ -24,35 +27,162 @@ export default function Cart () {
     );
 
     const renderCartList = cartItems.map((cart, index) => {
+        const total = cart.price * cart.quantity;
+
         return (
             <div
-                key={index}
+                className="
+                    flex flex-col gap-4
+                "
             >
+                <div
+                    key={index}
+                    className="
+                        flex justify-between items-center
+                    "
+                >
+                    {/* texts */}
+                    <div
+                        className="
+                            flex flex-col gap-2
+                        "
+                    >
+                        <div
+                            className="
+                                font-semibold text-[14px] text-rose-900
+                            "
+                        >
+                            {cart.name}
+                        </div>
+                        <div
+                            className="
+                                flex gap-2
+                            "
+                        >
+                            <div
+                                className="
+                                min-w-[21px]
+                                text-red text-[14px]
+                                font-semibold
+                                "
+                            >
+                                {cart.quantity}x
+                            </div>
+                            <div
+                                className="
+                                text-rose-500 text-[14px]
+                                "
+                            >
+                                @ ${cart.price.toFixed(2)}
+                            </div>
+                            <div
+                                className="
+                                text-rose-500 text-[14px] font-semibold
+                                "
+                            >
+                                ${total.toFixed(2)}
+                            </div>
+                        </div>
+                    </div>
 
+                    {/* close buttons */}
+                    <div
+                        className="
+                            flex justify-center items-center
+                            rounded-full border-[1px] border-rose-400
+                            w-[18px] h-[18px]
+                        "
+                        onClick={() => removeFromCart(cart.name)}
+                    >
+                        <img src="./assets/images/icon-remove-item.svg" alt="close icon" />
+                    </div>
+                </div>
+                <div
+                    className="
+                        border-b-[1px] border-rose-100
+                    "
+                >
+                </div>
             </div>
         )
-    })
+    });
 
-    return (
+    const carbonBanner = (
         <div
             className="
-                bg-white rounded-[12px]
-                flex flex-col gap-6
-                max-w-[327px] w-full
-                p-6 m-auto
+                w-full bg-rose-50
+                flex justify-center gap-2
+                rounded-[8px]
+                py-4
             "
+        >
+            <img src="./assets/images/icon-carbon-neutral.svg" alt="tree icon" />
+            <div
+                className="
+                    text-rose-900 text-[14px]
+                "
+            >
+                This is a{" "}
+                <span
+                    className="
+                        font-semibold
+                    "
+                >
+                    carbon-neutral
+                </span>
+            </div>
+        </div>
+    )
+
+    const confirmOrderButton = (
+        <div
+            className="
+                bg-red
+                flex items-center justify-center
+                w-full
+                py-4
+                rounded-full
+            "
+            onClick={() => setIsModalOpen(true)}
         >
             <div
                 className="
-                    font-bold text-[24px] text-red
+                    font-semibold text-[16px] text-white
                 "
             >
-                Your Cart (0)
+                Confirm Order
             </div>
-            {cartItems.length 
-                ? renderCartList
-                : emptyCart
-            }
         </div>
+    )
+
+    return (
+        <>
+            <div
+                className="
+                    bg-white rounded-[12px]
+                    flex flex-col gap-6
+                    max-w-[327px] w-full
+                    p-6 m-auto
+                "
+            >
+                <div
+                    className="
+                        font-bold text-[24px] text-red
+                    "
+                >
+                    Your Cart (0)
+                </div>
+                {cartItems.length 
+                    ? <>
+                        {renderCartList}
+                        <CartTotal />
+                        {carbonBanner}
+                        {confirmOrderButton}
+                    </>
+                    : emptyCart
+                }
+            </div>
+        </>
+
     )
 }

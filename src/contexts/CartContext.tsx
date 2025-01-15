@@ -5,6 +5,7 @@ export type CartItem = {
     name: string;
     price: number;
     quantity: number;
+    image: string;
 }
 
 // Define the context type
@@ -45,7 +46,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
             setCartItems((prevItems) => [...prevItems, {
                 name: item.name,
                 price: item.price,
-                quantity: 1
+                quantity: 1,
+                image: item.image.thumbnail
             }]);
         }
     };
