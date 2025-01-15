@@ -35,7 +35,7 @@ function App() {
         <Products/>
         <Cart setIsModalOpen={setIsModalOpen}/>
         
-          {isModalOpen && <ConfirmOrderModal setIsModalOpen={setIsModalOpen}/>}
+        <ConfirmOrderModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
       </div>   
     </CartProvider>
 
