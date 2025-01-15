@@ -14,6 +14,8 @@ export default function AddToCartButton ({product, handleUpdateCart}: AddToCartB
                 bg-white
                 w-[160px] h-[44px]
                 border-[1px] border-rose-400 rounded-full
+                cursor-pointer
+                hover:text-red
             "
             onClick={() => handleUpdateCart(product)}
         >

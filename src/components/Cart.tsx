@@ -1,5 +1,6 @@
 import { useCart } from "../contexts/CartContext";
 import CartTotal from "./CartTotal";
+import RemoveIcon from "./RemoveIcon";
 
 interface CartProps {
     setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -87,14 +88,9 @@ export default function Cart ({setIsModalOpen}: CartProps) {
 
                     {/* close buttons */}
                     <div
-                        className="
-                            flex justify-center items-center
-                            rounded-full border-[1px] border-rose-400
-                            w-[18px] h-[18px]
-                        "
                         onClick={() => removeFromCart(cart.name)}
                     >
-                        <img src="./assets/images/icon-remove-item.svg" alt="close icon" />
+                        <RemoveIcon />
                     </div>
                 </div>
                 <div
@@ -137,11 +133,12 @@ export default function Cart ({setIsModalOpen}: CartProps) {
     const confirmOrderButton = (
         <div
             className="
-                bg-red
+                bg-red hover:bg-dark-red
                 flex items-center justify-center
                 w-full
                 py-4
                 rounded-full
+                cursor-pointer
             "
             onClick={() => setIsModalOpen(true)}
         >
@@ -161,8 +158,8 @@ export default function Cart ({setIsModalOpen}: CartProps) {
                 className="
                     bg-white rounded-[12px]
                     flex flex-col gap-6
-                    max-w-[327px] w-full
-                    p-6 m-auto
+                    max-w-[327px] w-full md:max-w-none
+                    p-6 m-auto lg:m-0
                 "
             >
                 <div
@@ -170,7 +167,7 @@ export default function Cart ({setIsModalOpen}: CartProps) {
                         font-bold text-[24px] text-red
                     "
                 >
-                    Your Cart (0)
+                    Your Cart ({cartItems.length})
                 </div>
                 {cartItems.length 
                     ? <>

@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         "red": "#C73B0F",
+        "dark-red": "#952C0B",
         
         "rose-900": "#260F08",
         "rose-500": "#87635A",
@@ -23,6 +24,8 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide'),
+  ],
 }
 

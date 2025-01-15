@@ -53,18 +53,18 @@ export default function ConfirmOrderModal({
                 fixed  top-0 left-0 
                 backdrop-brightness-50 
                 transition-opacity duration-300 
-                flex items-end
+                flex items-end md:items-center lg:justify-center
                 ${isModalOpen ? "opacity-100 z-50" : "opacity-0 -z-10"}
             `}
             onClick={() => setIsModalOpen(false)}
         >
             <div
                 className={`
-                    max-h-[85%] h-auto w-full 
-                    py-10 px-6 
+                    max-h-[85%] h-auto w-full lg:max-w-[592px] 
+                    py-10 px-6 md:m-10 lg:m-auto
                     flex flex-col gap-8 
                     bg-white
-                    rounded-t-[12px] overflow-scroll 
+                    rounded-t-[12px] overflow-y-auto scrollbar-hide md:rounded-[12px]
                     transform transition-transform duration-500 
                     ${isModalOpen ? "translate-y-0" : "translate-y-full"}
                 `}
@@ -93,7 +93,7 @@ export default function ConfirmOrderModal({
 
                 {/* Button */}
                 <div
-                    className="bg-red flex items-center justify-center w-full py-4 rounded-full"
+                    className="bg-red hover:bg-dark-red flex items-center justify-center w-full py-4 rounded-full cursor-pointer"
                     onClick={() => {
                         setIsModalOpen(false);
                         clearCart();

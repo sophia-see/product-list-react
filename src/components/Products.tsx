@@ -1,5 +1,6 @@
 import { useCart } from "../contexts/CartContext";
 import data from "../data.json";
+import useDeviceSize from "../hooks/useDeviceSize";
 import AddToCartButton from "./AddToCartButton";
 import ProductQuantityButton from "./ProductQuantityButton";
 
@@ -16,6 +17,7 @@ export type Product = {
 }
 export default function Products () {
     const { cartItems, addToCart } = useCart();
+    const { isMobile, isTablet, isDesktop } = useDeviceSize();
 
     const handleUpdateCart = (item: Product, quantity?: number) => {
         addToCart(item, quantity);
@@ -23,13 +25,14 @@ export default function Products () {
 
     const renderProducts = data.map((product: Product, index) => {
         const itemInCart = cartItems.find(i => i.name == product.name);
-
+        const image = isMobile ? product.image.mobile : isTablet ? product.image.tablet : product.image.desktop;
+        
         return (
             <div 
                 className="
                     flex flex-col gap-4
-                    m-auto
-                    max-w-[327px] 
+                    m-auto md:m-0
+                    max-w-[327px] md:max-w-[213px]
                 "
                 key={index}
             >
@@ -42,11 +45,11 @@ export default function Products () {
                     "
                 >
                     <img 
-                        src={product.image.mobile} 
+                        src={image} 
                         alt={`image of ${product.name}`} 
                         className={`
                             w-full h-[212px]
-                            object-center
+                            object-cover
                             rounded-[8px]
                             ${itemInCart ? "border-[2px] border-red" : ""}
                         `}
@@ -102,6 +105,7 @@ export default function Products () {
         <div 
             className="
             flex flex-col gap-6
+            md:flex-row md:gap-x-6 md:gap-y-8 md:flex-wrap
             "
         >
             {renderProducts}

@@ -1,5 +1,8 @@
+import DecrementIcon from "./DecrementIcon";
+import IncrementIcon from "./IncrementIcon";
 import { Product } from "./Products";
-
+import decreaseIcon from "/assets/images/icon-decrement-quantity.svg";
+import increaseIcon from "/assets/images/icon-increment-quantity.svg";
 interface ProductQuantityButtonProps {
     product: Product;
     quantity: number;
@@ -15,21 +18,10 @@ export default function ProductQuantityButton ({product, quantity, handleUpdateC
     const renderButton = (type: string) => {
         return (
             <div
-                className="
-                    flex items-center justify-center
-                    px-[3.75px]
-                    rounded-full
-                    border-[1px] border-white
-                    w-[20px] h-[20px]
-                    cursor-pointer
-                "
                 onClick={() => handleClickButton(type)}
                 key={type}
             >
-                <img
-                    src={`./assets/images/icon-${type}-quantity.svg`} 
-                    alt={`${type} icon`}
-                />
+                {type == "decrement" ? <DecrementIcon /> : <IncrementIcon />}
             </div>
         )
     }
@@ -42,7 +34,6 @@ export default function ProductQuantityButton ({product, quantity, handleUpdateC
                 bg-red text-white
                 w-[160px] h-[44px] p-3
                 border-[1px] border-rose-400 rounded-full
-
             "
         >
             {renderButton("decrement")}

@@ -26,13 +26,19 @@ function App() {
       <div 
         className={`
           font-sans bg-rose-50 
-          flex flex-col gap-8
-          p-6
+          flex flex-col gap-8 lg:flex-row lg:items-start
+          p-6 md:p-10 lg:py-22 lg:px-28
           h-[100%] min-h-screen
         `}
       >
-        <Header />
-        <Products/>
+        <div
+          className={`
+            flex flex-col gap-8
+          `}
+        >
+          <Header />
+          <Products/>
+        </div>
         <Cart setIsModalOpen={setIsModalOpen}/>
         
         <ConfirmOrderModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
