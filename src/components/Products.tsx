@@ -32,7 +32,7 @@ export default function Products () {
                 className="
                     flex flex-col gap-4
                     m-auto md:m-0
-                    max-w-[327px] md:max-w-[213px]
+                    max-w-[327px] md:max-w-[213px] lg:max-w-[250px]
                 "
                 key={index}
             >
