@@ -27,7 +27,7 @@ function App() {
         className={`
           font-sans bg-rose-50 
           flex flex-col gap-8 lg:flex-row lg:items-start
-          p-6 md:p-10 lg:py-22 lg:px-28
+          p-6 md:p-10 lg:py-[44px] lg:px-[112px]
           h-[100%] min-h-screen
         `}
       >
