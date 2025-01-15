@@ -1,8 +1,6 @@
 import DecrementIcon from "./DecrementIcon";
 import IncrementIcon from "./IncrementIcon";
 import { Product } from "./Products";
-import decreaseIcon from "/assets/images/icon-decrement-quantity.svg";
-import increaseIcon from "/assets/images/icon-increment-quantity.svg";
 interface ProductQuantityButtonProps {
     product: Product;
     quantity: number;

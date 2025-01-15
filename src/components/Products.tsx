@@ -17,7 +17,7 @@ export type Product = {
 }
 export default function Products () {
     const { cartItems, addToCart } = useCart();
-    const { isMobile, isTablet, isDesktop } = useDeviceSize();
+    const { isMobile, isTablet } = useDeviceSize();
 
     const handleUpdateCart = (item: Product, quantity?: number) => {
         addToCart(item, quantity);
